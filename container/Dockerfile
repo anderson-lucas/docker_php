@@ -14,6 +14,8 @@ RUN apt-get install -y zlib1g-dev \
    libxml2-dev \
    nano \
    cron \
+   curl \
+   libzip-dev \
    libpng-dev \
    libpq-dev \
    libc-client-dev \
@@ -23,24 +25,27 @@ RUN apt-get install -y zlib1g-dev \
    git \
    gnupg \
    bzip2 \
+   freetds-bin \
+   freetds-dev \
+   freetds-common \
    rsync && \
    apt-get clean -y
 
 # ------------------------------------------------------------------------------
-# Habilitação da extensão ZIP
-# ------------------------------------------------------------------------------
-RUN pecl install zip && echo "extension=zip.so" > /usr/local/etc/php/conf.d/zip.ini
-
-# ------------------------------------------------------------------------------
 # Habilitação de extensões php
 # ------------------------------------------------------------------------------
-RUN docker-php-ext-install pdo_pgsql pgsql mcrypt bcmath pdo_mysql mysql mysqli mbstring soap gd
+RUN docker-php-ext-install pdo_pgsql pgsql pdo_mysql mysqli
 
 # ------------------------------------------------------------------------------
 # Instalar o composer
 # ------------------------------------------------------------------------------
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
+
+# ------------------------------------------------------------------------------
+# Instalar o nodejs
+# ------------------------------------------------------------------------------
+RUN  curl -sL https://deb.nodesource.com/setup_12.x | bash && apt-get install nodejs
 
 # ------------------------------------------------------------------------------
 # ServerName para evitar erros, e habilitação de extensões do PHP
