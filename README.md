@@ -1,3 +1,3 @@
-# Get started
+# How to use
 
-`docker-compose up -d and it should works`
+`docker-compose up -d`
