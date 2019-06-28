@@ -1,3 +1,3 @@
-# How to use
+## How to use
 
 `docker-compose up -d`
