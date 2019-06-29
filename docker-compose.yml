@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 services:
   php_container:
     build:
@@ -11,9 +11,9 @@ services:
     ports:
       - 3000:80
     depends_on: 
-      - db_container
-  db_container:
-    container_name: db_container
+      - db_mysql
+  db_mysql:
+    container_name: db_mysql
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
