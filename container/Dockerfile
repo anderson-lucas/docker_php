@@ -34,7 +34,7 @@ RUN apt-get install -y zlib1g-dev \
 # ------------------------------------------------------------------------------
 # Habilitação de extensões php
 # ------------------------------------------------------------------------------
-RUN docker-php-ext-install pdo_pgsql pgsql pdo_mysql mysqli
+RUN docker-php-ext-install pdo_pgsql pgsql
 
 # ------------------------------------------------------------------------------
 # Instalar o composer
@@ -43,11 +43,11 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
 # ------------------------------------------------------------------------------
-# Instalar o nodejs
-# ------------------------------------------------------------------------------
-RUN  curl -sL https://deb.nodesource.com/setup_12.x | bash && apt-get install nodejs
-
-# ------------------------------------------------------------------------------
 # ServerName para evitar erros, e habilitação de extensões do PHP
 # ------------------------------------------------------------------------------
 RUN echo 'ServerName localhost' >> /etc/apache2/apache2.conf && a2enmod rewrite ssl
+
+# ------------------------------------------------------------------------------
+# Adicionar task do cron
+# ------------------------------------------------------------------------------
+RUN echo '* * * * * root php /var/www/app/artisan schedule:run >> /dev/null 2>&1' >> /etc/crontab
