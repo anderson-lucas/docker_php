@@ -1,10 +1,10 @@
 version: "3"
 services:
-  taskmanager:
+  php_container:
     build:
       context: .
       dockerfile: ./container/Dockerfile
-    container_name: taskmanager
+    container_name: php_container
     volumes:
       - .:/var/www/app
       - ./container/apache.conf:/etc/apache2/sites-available/000-default.conf

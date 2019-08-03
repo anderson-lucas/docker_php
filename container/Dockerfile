@@ -34,7 +34,7 @@ RUN apt-get install -y zlib1g-dev \
 # ------------------------------------------------------------------------------
 # Habilitação de extensões php
 # ------------------------------------------------------------------------------
-RUN docker-php-ext-install pdo_pgsql pgsql
+RUN docker-php-ext-install pdo_pgsql pgsql pdo_mysql mysql
 
 # ------------------------------------------------------------------------------
 # Instalar o composer
@@ -46,8 +46,3 @@ RUN mv composer.phar /usr/local/bin/composer
 # ServerName para evitar erros, e habilitação de extensões do PHP
 # ------------------------------------------------------------------------------
 RUN echo 'ServerName localhost' >> /etc/apache2/apache2.conf && a2enmod rewrite ssl
-
-# ------------------------------------------------------------------------------
-# Adicionar task do cron
-# ------------------------------------------------------------------------------
-RUN echo '* * * * * root php /var/www/app/artisan schedule:run >> /dev/null 2>&1' >> /etc/crontab
