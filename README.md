@@ -1,3 +1,3 @@
-# Container PHP
+## How to use
 
-Exemplo de container com PHP 7.3 para desenvolvimento
+`docker-compose up -d`
